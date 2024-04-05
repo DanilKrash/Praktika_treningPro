@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}Ваш профиль{% endblock title %}
+
+{% block head %}
+    <div class="container mt-2">
+        <div class="row">
+            <div class="col-md-20">
+                <section>
+                    <div class="container py-5 h-100">
+                        <div class="row d-flex justify-content-center align-items-center h-100">
+                            <div class="col col-md-9 col-lg-7 col-xl-5">
+                                <div class="card" style="border-radius: 15px;">
+                                    <div class="card-body p-4">
+                                        <div class="d-flex text-black">
+                                            <div class="flex-shrink-0">
+{#                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"#}
+{#                                                     alt="Generic placeholder image" class="img-fluid"#}
+{#                                                     style="width: 180px; border-radius: 10px;">#}
+                                            </div>
+                                            <div class="flex-grow-1 ms-3">
+                                                <h5 class="mb-1">{{ user.username }}</h5>
+                                                <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
+                                                     style="background-color: #efefef;">
+                                                    <div class="px-3">
+                                                        <p class="small text-muted mb-1">Имя:</p>
+                                                        <p class="mb-0">{{ user.first_name }}</p>
+                                                    </div>
+                                                    <div class="px-3">
+                                                        <p class="small text-muted mb-1">Фамилия:</p>
+                                                        <p class="mb-0">{{ user.last_name }}</p>
+                                                    </div>
+{#                                                    <div>#}
+{#                                                        <p class="small text-muted mb-1">Тел:</p>#}
+{#                                                        <p class="mb-0">{{ user.usernumber }}</p>#}
+{#                                                    </div>#}
+                                                    <div class="px-3">
+                                                        <p class="small text-muted mb-1">Почта:</p>
+                                                        <p class="mb-0">{{ user.email }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div>
+                    <Center><h2 class="display-4 mt-3"><b>Ваши заявки</b></h2></Center>
+                </div>
+                <table class="table">
+                    <thead class="thead-warning text-light">
+                    <tr>
+                        <th scope="col">Дата заявки</th>
+                        <th scope="col">Начало</th>
+                        <th scope="col">Конец</th>
+                        <th scope="col">Вид спорта</th>
+                        <th scope="col">Тренер</th>
+                        <th scope="col">Статус заявки</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for attend in prof %}
+                        <tr class="text-light">
+                            <td>{{ attend.date }}</td>
+                            <td>{{ attend.login }}</td>
+                            <td>{{ attend.logout }}</td>
+                            <td>{{ attend.sport }}</td>
+                            <td>{{ attend.trainer }}</td>
+                            <td>{{ attend.get_status_display }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

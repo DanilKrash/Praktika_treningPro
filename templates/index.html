@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>FitnessPro</title>
+
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+    <link href="/static/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/static/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="/static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="/static/assets/css/style.css" rel="stylesheet">
+</head>
+<body>
+<header id="header" class="fixed-top ">
+    <div class="container d-flex align-items-center justify-content-lg-between">
+        <h4 class="me-auto me-lg-0"><a class="text-light" href="/">Trening_<span class="text-danger">Pro</span></a></h4>
+        <nav id="navbar" class="navbar order-last order-lg-0">
+            <ul>
+                <li><a class="nav-link scrollto" href="/">Главная</a></li>
+                <li><a class="nav-link scrollto" href="/sport">Виды спорта</a></li>
+                <li><a class="nav-link scrollto" href="/contact">Оставить отзыв</a></li>
+                <li class="dropdown"><a href="#"><span>Действия</span> <i class="bi bi-chevron-down"></i></a>
+                    <ul>
+                        <li><a href="/attendance">Записаться</a></li>
+
+                        <li><a href="/profile">Ваш профиль</a></li>
+                    </ul>
+                </li>
+
+                {% if not request.user.is_authenticated %}
+                    <li><a class="nav-link scrollto" href="{% url 'login' %}">Войти</a></li>
+                {% else %}
+                    <li><a class="nav-link scrollto" href="{% url 'logout' %}">Выйти</a></li>
+                {% endif %}
+
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav>
+    </div>
+</header>
+
+<section id="hero" class="d-flex align-items-center justify-content-center">
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-xl-6 col-lg-8">
+                <h1 class="fs-1">Добро пожаловать на Trening<span class="text-danger">Pro!</span></h1>
+                <h2>Что вас ждёт:</h2>
+            </div>
+        </div>
+
+        <div class="row gy-4 mt-5 justify-content-center">
+            <div class="col-xl-2 col-md-4">
+                <div class="icon-box">
+                    <i class="ri-store-line"></i>
+                    <h3><a href="">Тренировки с персональным тренером</a></h3>
+                </div>
+            </div>
+            <div class="col-xl-2 col-md-4">
+                <div class="icon-box">
+                    <i class="ri-bar-chart-box-line"></i>
+                    <h3><a href="">После первого визита подберём для вас питание</a></h3>
+                </div>
+            </div>
+            <div class="col-xl-2 col-md-4">
+                <div class="icon-box">
+                    <i class="ri-calendar-todo-line"></i>
+                    <h3><a href="">Персональные рекомендации посещаемости</a></h3>
+                </div>
+            </div>
+            <div class="col-xl-2 col-md-4">
+                <div class="icon-box">
+                    <i class="ri-paint-brush-line"></i>
+                    <h3><a href="">Приём ваших предложений и почитаний</a></h3>
+                </div>
+            </div>
+            <div class="col-xl-2 col-md-4">
+                <div class="icon-box">
+                    <i class="ri-database-2-line"></i>
+                    <h3><a href="">Круглосуточное общение с нашими операторами</a></h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<main id="main">
+    <section id="cta" class="cta">
+        <div class="container">
+
+            <div class="text-center">
+                <h3>Есть вопросы?</h3>
+                <p>Напишите нам или позвоните. Наши операторы ответят в любое время!</p>
+                <p class="text-danger">Тел: +7(965)534-54-34</p>
+                <p class="text-danger">Почта: treningPro@mail.ru</p>
+                <a class="btn btn-danger" href="/contact">Написать</a>
+            </div>
+
+        </div>
+    </section>
+    <section id="contact" class="contact">
+        <div class="container">
+
+            <div class="section-title">
+                <h2>Местонахождение</h2>
+            </div>
+
+            <div>
+                <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A43d75e29a280d6a05d7e261367c34a4116837debc2487de2fffdfa2242b141e7&amp;source=constructor"
+                        width="1280" height="270" frameborder="0"></iframe>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer id="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-info">
+                        <h1><a href="">T<span class="text-danger">P</span></a></h1>
+                        <p>
+                            Россия, г. Курган <br>
+                            ул. Советская, д. 108<br><br>
+                            <strong>Тел:</strong> +7(965)534-54-34<br>
+                            <strong>Почта:</strong> treningPro@mail.ru<br>
+                        </p>
+                        <div class="social-links mt-3">
+                            <a href="#" class="vk"><i class="bx bxl-vk"></i></a>
+                            <a href="#" class="telegram"><i class="bx bxl-telegram"></i></a>
+                            <a href="#" class="discord"><i class="bx bxl-discord"></i></a>
+                            <a href="#" class="whatsapp"><i class="bx bxl-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-6 footer-links">
+                    <h4>Ссылки: </h4>
+                    <ul>
+                        <li><i class="bx bx-chevron-right"></i> <a href="/">Главная</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="/services">Виды спорта</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="/contact">О нас</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="copyright">
+            &copy; Copyright <strong><span>TP</span></strong> Все права защищены
+        </div>
+    </div>
+</footer>
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
+</body>
+</html>
