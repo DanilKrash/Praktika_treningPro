@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %} Изменение профиля {% endblock title %}
+
+{% block head %}
+    <h1>Заполните все поля для профиля</h1>
+    <div class="container mt-2">
+        <div class="row">
+            <div class="col-md-6">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="btn btn-danger" type="submit">Сохранить изменения</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

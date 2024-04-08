@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
 
-{% load crispy_forms_filters %}
-
 {% block title %} Оформление заявки {% endblock %}
 
 {% block head %}
@@ -18,9 +16,9 @@
                 {% endfor %}
                 <form method="post">
                     {% csrf_token %}
-                    {{ form|crispy }}
+                    {{ form.as_p }}
                     <br>
-                    <button class="btn btn-warning" type="submit">Оставить</button>
+                    <button class="btn btn-danger" type="submit">Оставить заявку</button>
                 </form>
             </div>
             <div class="col-md-3"></div>

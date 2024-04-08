@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Обзор заявки #{{ attend_det.id }}{% endblock title %}
+
+{% block head %}
+    <div class="container py-5">
+        <div class="row">
+
+            <div class="col-lg-6 d-flex flex-column align-items-center">
+                <div class="col-lg-6">
+                    <img class="img-fluid" src="{{ attend_det.sport.img.url }}" alt="">
+                </div>
+                <h2 class="fw-bold mb-5">Вид спорта заявки: {{ attend_det.sport.name }}</h2>
+                <p class="text-light">Дата регистрация заявки: {{ attend_det.date }}</p>
+                <p class="my-4 text-light">Дата начала тренировки: {{ attend_det.login }}</p>
+                <p class="mb-4 text-light">Дата окончания тренировки: {{ attend_det.logout }}</p>
+                <h4 class="my-3 text-light">Статус подтверждения: {% if attend_det.status == 'notviewed' %}
+                    <td class="text-bg-light">{{ attend_det.get_status_display }}</td>
+                {% elif attend_det.status == 'yes' %}
+                    <td class="text-bg-success">{{ attend_det.get_status_display }}</td>
+                {% else %}
+                    <td class="text-bg-danger">{{ attend_det.get_status_display }}</td>
+                {% endif %}
+                </h4>
+            </div>
+
+            <div class="col-lg-6 d-flex flex-column align-items-center">
+                <div class="col-lg-6">
+                    <img class="img-fluid" src="{{ attend_det.trainer.img.url }}" alt="">
+                </div>
+                <h2 class="fw-bold mb-5">Тренер: {{ attend_det.trainer.name }} {{ attend_det.trainer.surname }}</h2>
+                <p class="text-light">Дата устройства на работу: {{ attend_det.trainer.timeStamp }}</p>
+                <p class="my-4 text-light">Специализация в спорте: {{ attend_det.trainer.specialization }}</p>
+                <p class="mb-4 text-light">Опыт работы: {{ attend_det.trainer.experience }}</p>
+                <h4 class="my-4 text-light">Номер телефона: {{ attend_det.trainer.phone }}</h4>
+            </div>
+        </div>
+        <ul class="nav nav-tabs mt-5 border-danger" id="productTab" role="tablist">
+
+        </ul>
+    </div>
+{% endblock %}

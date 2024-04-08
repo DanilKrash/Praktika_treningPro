@@ -32,10 +32,10 @@ class Trainer(models.Model):
     name = models.CharField(max_length=55, verbose_name='Имя')
     surname = models.CharField(max_length=55, verbose_name='Фамилия')
     img = models.ImageField(upload_to='trainers/%Y/%m/%d/', verbose_name='Фото')
-    phone = models.CharField(max_length=25)
+    phone = models.CharField(max_length=25, verbose_name='Телефон')
     specialization = models.ForeignKey(Sport, on_delete=models.CASCADE, verbose_name='Специализация')
     experience = models.CharField(max_length=50, verbose_name='Опыт')
-    timeStamp = models.DateTimeField(auto_now_add=True, blank=True)
+    timeStamp = models.DateTimeField(auto_now_add=True, blank=True, verbose_name='Дата устройства')
 
     def __str__(self):
         return self.name
@@ -47,7 +47,7 @@ class Trainer(models.Model):
 
 class Attendance(models.Model):
     class Status(models.TextChoices):
-        notviewed = 'notviewed', 'Новая'
+        notviewed = 'notviewed', 'Не просмотрена'
         yes = 'yes', 'Одобрена'
         no = 'no', 'Не одобрена'
 
@@ -67,3 +67,31 @@ class Attendance(models.Model):
         verbose_name = 'Заявка'
         verbose_name_plural = 'Заявки'
 
+
+class Profile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    phone = models.CharField(max_length=15, verbose_name='Телефон')
+    physical = models.CharField(max_length=50, verbose_name='Уровень физической подготовки')
+    preferences = models.ManyToManyField(Sport, blank=True, verbose_name='Предпочтения')
+    img = models.ImageField(upload_to='users/%Y/%m/%d', verbose_name='Фото')
+
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        verbose_name = 'Профиль'
+        verbose_name_plural = 'Профили'
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    attendance = models.ForeignKey(Attendance, on_delete=models.CASCADE, verbose_name='Тренировка')
+    body = models.TextField(blank=False, verbose_name='Сообщение')
+    created_at = models.DateField(auto_now_add=True, verbose_name='Дата')
+
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'

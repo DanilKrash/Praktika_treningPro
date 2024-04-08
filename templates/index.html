@@ -20,6 +20,8 @@
     <link href="/static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="/static/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
     <link href="/static/assets/css/style.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="/static/images/icon.png"/>
+
 </head>
 <body>
 <header id="header" class="fixed-top ">
@@ -30,13 +32,22 @@
                 <li><a class="nav-link scrollto" href="/">Главная</a></li>
                 <li><a class="nav-link scrollto" href="/sport">Виды спорта</a></li>
                 <li><a class="nav-link scrollto" href="/contact">Оставить отзыв</a></li>
-                <li class="dropdown"><a href="#"><span>Действия</span> <i class="bi bi-chevron-down"></i></a>
-                    <ul>
-                        <li><a href="/attendance">Записаться</a></li>
 
-                        <li><a href="/profile">Ваш профиль</a></li>
-                    </ul>
-                </li>
+                {% if user.is_authenticated %}
+                    <li class="dropdown"><a href="#"><span>{{ user.username }}</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="/attendance">Записаться</a></li>
+                            <li><a href="/profile">Ваш профиль</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="dropdown"><a href="#"><span>Гость</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="/attendance">Записаться</a></li>
+                            <li><a href="/profile">Ваш профиль</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
 
                 {% if not request.user.is_authenticated %}
                     <li><a class="nav-link scrollto" href="{% url 'login' %}">Войти</a></li>
@@ -63,7 +74,7 @@
         <div class="row gy-4 mt-5 justify-content-center">
             <div class="col-xl-2 col-md-4">
                 <div class="icon-box">
-                    <i class="ri-store-line"></i>
+                    <i class="bi bi-person-lines-fill"></i>
                     <h3><a href="">Тренировки с персональным тренером</a></h3>
                 </div>
             </div>
@@ -81,13 +92,13 @@
             </div>
             <div class="col-xl-2 col-md-4">
                 <div class="icon-box">
-                    <i class="ri-paint-brush-line"></i>
+                    <i class="bi bi-pencil-square"></i>
                     <h3><a href="">Приём ваших предложений и почитаний</a></h3>
                 </div>
             </div>
             <div class="col-xl-2 col-md-4">
                 <div class="icon-box">
-                    <i class="ri-database-2-line"></i>
+                    <i class="bi bi-telephone"></i>
                     <h3><a href="">Круглосуточное общение с нашими операторами</a></h3>
                 </div>
             </div>
@@ -133,7 +144,7 @@
 
                 <div class="col-lg-3 col-md-6">
                     <div class="footer-info">
-                        <h1><a href="">T<span class="text-danger">P</span></a></h1>
+                        <h1><a class="text-light" href="">T<span class="text-danger">P</span></a></h1>
                         <p>
                             Россия, г. Курган <br>
                             ул. Советская, д. 108<br><br>
@@ -153,8 +164,8 @@
                     <h4>Ссылки: </h4>
                     <ul>
                         <li><i class="bx bx-chevron-right"></i> <a href="/">Главная</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="/services">Виды спорта</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="/contact">О нас</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="/sport">Виды спорта</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="/contact">Оставить отзыв</a></li>
                     </ul>
                 </div>
             </div>
@@ -167,8 +178,5 @@
         </div>
     </div>
 </footer>
-
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-        class="bi bi-arrow-up-short"></i></a>
 </body>
 </html>

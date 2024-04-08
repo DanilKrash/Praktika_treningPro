@@ -7,49 +7,62 @@
         <div class="row">
             <div class="col-md-20">
                 <section>
-                    <div class="container py-5 h-100">
-                        <div class="row d-flex justify-content-center align-items-center h-100">
-                            <div class="col col-md-9 col-lg-7 col-xl-5">
-                                <div class="card" style="border-radius: 15px;">
-                                    <div class="card-body p-4">
-                                        <div class="d-flex text-black">
-                                            <div class="flex-shrink-0">
-{#                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"#}
-{#                                                     alt="Generic placeholder image" class="img-fluid"#}
-{#                                                     style="width: 180px; border-radius: 10px;">#}
-                                            </div>
-                                            <div class="flex-grow-1 ms-3">
-                                                <h5 class="mb-1">{{ user.username }}</h5>
-                                                <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
-                                                     style="background-color: #efefef;">
-                                                    <div class="px-3">
-                                                        <p class="small text-muted mb-1">Имя:</p>
-                                                        <p class="mb-0">{{ user.first_name }}</p>
-                                                    </div>
-                                                    <div class="px-3">
-                                                        <p class="small text-muted mb-1">Фамилия:</p>
-                                                        <p class="mb-0">{{ user.last_name }}</p>
-                                                    </div>
-{#                                                    <div>#}
-{#                                                        <p class="small text-muted mb-1">Тел:</p>#}
-{#                                                        <p class="mb-0">{{ user.usernumber }}</p>#}
-{#                                                    </div>#}
-                                                    <div class="px-3">
-                                                        <p class="small text-muted mb-1">Почта:</p>
-                                                        <p class="mb-0">{{ user.email }}</p>
+                        <div class="container py-5 h-100">
+                            <div class="row d-flex justify-content-center align-items-center h-100">
+                                <div class="col col-md-9 col-lg-7 col-xl-7">
+                                    {% for item in prof %}
+                                    <div class="card" style="border-radius: 15px;">
+                                        <div class="card-body p-4">
+                                            <div class="d-flex align-items-center text-black">
+                                                <div class="flex-shrink-0">
+                                                    <img src="{{ item.img.url }}"
+                                                         alt="Generic placeholder image" class="img-fluid"
+                                                         style="width: 180px; border-radius: 10px;">
+                                                </div>
+                                                <div class="flex-grow-1 ms-3">
+                                                    <h5 class="mb-1">{{ item.user.username }}</h5>
+                                                    <div class="d-flex justify-content-center flex-wrap rounded-3 p-2 mb-2"
+                                                         style="background-color: #efefef;">
+                                                        <div class="px-3">
+                                                            <p class="small text-muted mb-1 m-2">Имя:</p>
+                                                            <p class="mb-0">{{ item.user.first_name }}</p>
+                                                        </div>
+                                                        <div class="px-3">
+                                                            <p class="small text-muted mb-1 m-2">Фамилия:</p>
+                                                            <p class="mb-0">{{ item.user.last_name }}</p>
+                                                        </div>
+                                                        <div>
+                                                            <p class="small text-muted mb-1 m-2">Телефон:</p>
+                                                            <p class="mb-0">{{ item.phone }}</p>
+                                                        </div>
+                                                        <div class="px-3">
+                                                            <p class="small text-muted mb-1 m-2">Почта:</p>
+                                                            <p class="mb-0">{{ item.user.email }}</p>
+                                                        </div>
+                                                        <div class="px-3">
+                                                            <p class="small text-muted mb-1 m-2">Уровень физ. подготовки:</p>
+                                                            <p class="mb-0">{{ item.physical }}</p>
+                                                        </div>
+                                                        <div class="px-3">
+                                                            <p class="small text-muted mb-1 m-2">Предпочтения:</p>
+                                                            {% for p in item.preferences.all %} {{ p.name }} {% endfor %}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            {% if item.phone == null %}
+                                                <a href="/create_profile" class="btn btn-danger mt-3">Создать профиль</a>
+                                            {% else %}
+                                                <a href="{% url 'update_profile' item.id %}" class="btn btn-danger mt-3">Изменить профиль</a>
+                                            {% endif %}
                                         </div>
                                     </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </section>
-                <div>
-                    <Center><h2 class="display-4 mt-3"><b>Ваши заявки</b></h2></Center>
-                </div>
+                <Center><h2 class="display-4 mt-3 mb-5"><b>Ваши заявки</b></h2></Center>
                 <table class="table">
                     <thead class="thead-warning text-light">
                     <tr>
@@ -58,18 +71,27 @@
                         <th scope="col">Конец</th>
                         <th scope="col">Вид спорта</th>
                         <th scope="col">Тренер</th>
-                        <th scope="col">Статус заявки</th>
+                        <th class="text-danger" scope="col">Статус заявки</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for attend in prof %}
+                    {% for item in attend %}
                         <tr class="text-light">
-                            <td>{{ attend.date }}</td>
-                            <td>{{ attend.login }}</td>
-                            <td>{{ attend.logout }}</td>
-                            <td>{{ attend.sport }}</td>
-                            <td>{{ attend.trainer }}</td>
-                            <td>{{ attend.get_status_display }}</td>
+                            <td>{{ item.date }}</td>
+                            <td>{{ item.login }}</td>
+                            <td>{{ item.logout }}</td>
+                            <td>{{ item.sport }}</td>
+                            <td>{{ item.trainer }}</td>
+                            {% if item.status == 'notviewed' %}
+                                <td class="text-bg-secondary">{{ item.get_status_display }}</td>
+                            {% elif item.status == 'yes' %}
+                                <td class="text-bg-success">{{ item.get_status_display }}</td>
+                            {% else %}
+                                <td class="text-bg-danger">{{ item.get_status_display }}</td>
+                            {% endif %}
+                            <td class="border-bottom-0">
+                                <a class="btn btn-danger" href="{% url 'attendance_view' item.id %}">Подробнее</a>
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>

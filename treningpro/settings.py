@@ -3,7 +3,7 @@ from django.contrib.messages import constants as messages
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-@kdu$p%%g-r77%(f2u4+x8y+i-@l153ljkqm5@5z+*)=nco%wb'
+SECRET_KEY = "django-insecure-@kdu$p%%g-r77%(f2u4+x8y+i-@l153ljkqm5@5z+*)=nco%wb"
 
 DEBUG = True
 
@@ -16,8 +16,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'crispy_forms',
-    'crispy_bootstrap5',
     'authapp.apps.AuthappConfig',
 ]
 

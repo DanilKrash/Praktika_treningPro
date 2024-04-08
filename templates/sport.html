@@ -3,30 +3,17 @@
 {% block title %} Список видов спорта {% endblock %}
 
 {% block head %}
-    <div class="text-center container py-5">
-        <h4 class="mt-4 mb-5 text-light"><strong>Все доступные виды спорта</strong></h4>
-
-        <div class="row">
-            <div class="col-lg-4 col-md-12 mb-4">
-                {% for itme in tren %}
-                    <div class="card bg-dark border border-danger border-opacity-75 text-light">
-                        <div class="bg-image hover-zoom ripple ripple-surface">
-                            <img src="{{ itme.img.url }}"
-                                 class="w-100"/>
-                            <div class="mask">
-                            </div>
-                            <div class="hover-overlay">
-                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <h5 class="card-title mb-3">{{ itme.name }}</h5>
-                            <p>{{ itme.body }}</p>
-                            <a href="{% url 'attendance' %}" class="btn btn-danger">Перейти к заказу тренировки</a>
-                        </div>
-                    </div>
-                {% endfor %}
+    <h4 class="mt-4 mb-5 text-light"><strong>Все доступные виды спорта</strong></h4>
+    <div class="d-flex justify-content-center">
+        {% for item in tren %}
+            <div class="card m-5 border-danger" style="width: 18rem;">
+                <img src="{{item.img.url}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.name }}</h5>
+                    <p class="card-text">{{ item.body }}</p>
+                    <a href="{% url 'attendance' %}?id=id_sport" class="btn btn-danger">Перейти к заполнению заявки</a>
+                </div>
             </div>
-        </div>
+        {% endfor %}
     </div>
 {% endblock %}
