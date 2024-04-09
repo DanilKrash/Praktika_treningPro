@@ -4,8 +4,9 @@ from django.contrib import messages
 from django.contrib.auth import login
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
-from authapp.forms import RegisterUserForm, LoginUserForm, AttendanceForm, ContactForm, ProfileForm
-from authapp.models import Contact, Attendance, Sport, Profile
+from authapp.forms import RegisterUserForm, LoginUserForm, AttendanceForm, ContactForm, ProfileForm, \
+    CommentAttendenceForm, CommentTrainerForm
+from authapp.models import Contact, Attendance, Sport, Profile, Trainer, CommentAttendence, CommentTrainer
 
 
 def home(request):
@@ -20,7 +21,7 @@ class RegisterUserView(CreateView):
     def form_valid(self, form):
         user = form.save()
         login(self.request, user)
-        return redirect('login')
+        return redirect('create_profile')
 
 
 class LoginUserView(LoginView):
@@ -78,7 +79,7 @@ def profile_update(request, id):
         return redirect('/profile')
     else:
         form = ProfileForm()
-    return render(request, 'create_profile.html', {"form": form, "prof": prof})
+    return render(request, 'update_profile.html', {"form": form, "prof": prof})
 
 
 def attendance(request):
@@ -99,8 +100,24 @@ def attendance(request):
 
 
 def attendance_view(request, id):
+    if not request.user.is_authenticated:
+        messages.warning(request, "Пожалуйста, войдите и попробуйте заново")
+        return redirect('/login')
+
     attend_det = get_object_or_404(Attendance, id=id)
-    return render(request, "detail_attendance.html", {'attend_det': attend_det})
+    comment = CommentAttendence.objects.filter(attendance=id)
+    if request.method == 'POST':
+        form = CommentAttendenceForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.user = request.user
+            form.attendance = attend_det
+            form.save()
+            form = CommentAttendenceForm
+    else:
+        form = CommentAttendence()
+    return render(request, "detail_attendance.html", {'attend_det': attend_det, 'form': form, 'comment': comment})
+
 
 # class StatusUpdateView(UpdateView):
 #     model = Application
@@ -127,3 +144,24 @@ def contact(request):
 
     form = ContactForm()
     return render(request, "contact.html", {'form': form, 'cont': cont})
+
+
+def trainer(request):
+    train = Trainer.objects.all()
+    return render(request, "trainer.html", {'train': train})
+
+
+def trainer_detail(request, id):
+    train_det = get_object_or_404(Trainer, id=id)
+    comment = CommentTrainer.objects.filter(trainer=id)
+    if request.method == 'POST':
+        form = CommentTrainerForm(request.POST)
+        if form.is_valid():
+            form = form.save(commit=False)
+            form.user = request.user
+            form.trainer = train_det
+            form.save()
+            form = CommentTrainerForm
+    else:
+        form = CommentTrainerForm()
+    return render(request, "detail_trainer.html", {'train_det': train_det, 'form': form, 'comment': comment})

@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
 
 
 class Contact(models.Model):
@@ -83,7 +84,7 @@ class Profile(models.Model):
         verbose_name_plural = 'Профили'
 
 
-class Comment(models.Model):
+class CommentAttendence(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
     attendance = models.ForeignKey(Attendance, on_delete=models.CASCADE, verbose_name='Тренировка')
     body = models.TextField(blank=False, verbose_name='Сообщение')
@@ -93,5 +94,19 @@ class Comment(models.Model):
         return self.user.username
 
     class Meta:
-        verbose_name = 'Комментарий'
-        verbose_name_plural = 'Комментарии'
+        verbose_name = 'Комментарий для тренировки'
+        verbose_name_plural = 'Комментарии для тренировок'
+
+
+class CommentTrainer(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, verbose_name='Тренер')
+    body = models.TextField(blank=False, verbose_name='Сообщение')
+    created_at = models.DateField(auto_now_add=True, verbose_name='Дата')
+
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        verbose_name = 'Комментарий для тренера'
+        verbose_name_plural = 'Комментарии для тренеров'

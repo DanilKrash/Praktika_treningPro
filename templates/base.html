@@ -32,6 +32,7 @@
             <ul>
                 <li><a class="nav-link scrollto" href="/">Главная</a></li>
                 <li><a class="nav-link scrollto" href="/sport">Виды спорта</a></li>
+                <li><a class="nav-link scrollto" href="/trainer">Наши тренера</a></li>
                 <li><a class="nav-link scrollto" href="/contact">Оставить отзыв</a></li>
 
                 {% if user.is_authenticated %}
@@ -42,6 +43,7 @@
                         </ul>
                     </li>
                 {% else %}
+
                     <li class="dropdown"><a href="#"><span>Гость</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
                             <li><a href="/attendance">Записаться</a></li>
@@ -73,13 +75,10 @@
         </div>
     </div>
 </section>
-<main id="main">
+<main class="bg-dark" id="main">
     {% block body %}
 
     {% endblock %}
 </main>
-
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-        class="bi bi-arrow-up-short"></i></a>
 </body>
 </html>

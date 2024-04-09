@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 
-{% block title %} Список видов спорта {% endblock %}
+{% block title %} Наши тренера {% endblock %}
 
 {% block head %}
-    <h4 class="mt-4 mb-2 text-light"><strong>Все доступные виды спорта</strong></h4>
+    <h4 class="mt-4 mb-2 text-light"><strong> Все тренера </strong></h4>
     <div class="d-flex justify-content-center">
-        {% for item in tren %}
+        {% for item in train %}
             <div class="card m-5 border-danger" style="width: 18rem;">
                 <img src="{{item.img.url}}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{ item.name }}</h5>
-                    <p class="card-text">{{ item.body }}</p>
-                    <a href="{% url 'attendance' %}" class="btn btn-danger">Перейти к заполнению заявки</a>
+                    <p class="card-text">Специализируется на {{ item.specialization }}</p>
+                    <a href="{% url 'trainer_detail' item.id %}" class="btn btn-danger">Подробнее</a>
                 </div>
             </div>
         {% endfor %}

@@ -3,40 +3,69 @@
 {% block title %}Обзор заявки #{{ attend_det.id }}{% endblock title %}
 
 {% block head %}
-    <div class="container py-5">
-        <div class="row">
+    <div class="row">
 
-            <div class="col-lg-6 d-flex flex-column align-items-center">
-                <div class="col-lg-6">
-                    <img class="img-fluid" src="{{ attend_det.sport.img.url }}" alt="">
-                </div>
-                <h2 class="fw-bold mb-5">Вид спорта заявки: {{ attend_det.sport.name }}</h2>
-                <p class="text-light">Дата регистрация заявки: {{ attend_det.date }}</p>
-                <p class="my-4 text-light">Дата начала тренировки: {{ attend_det.login }}</p>
-                <p class="mb-4 text-light">Дата окончания тренировки: {{ attend_det.logout }}</p>
-                <h4 class="my-3 text-light">Статус подтверждения: {% if attend_det.status == 'notviewed' %}
-                    <td class="text-bg-light">{{ attend_det.get_status_display }}</td>
-                {% elif attend_det.status == 'yes' %}
-                    <td class="text-bg-success">{{ attend_det.get_status_display }}</td>
-                {% else %}
-                    <td class="text-bg-danger">{{ attend_det.get_status_display }}</td>
-                {% endif %}
-                </h4>
+        <div class="col-lg-6 d-flex flex-column align-items-center">
+            <div class="col-lg-6">
+                <img class="img-fluid" src="{{ attend_det.sport.img.url }}" alt="">
             </div>
-
-            <div class="col-lg-6 d-flex flex-column align-items-center">
-                <div class="col-lg-6">
-                    <img class="img-fluid" src="{{ attend_det.trainer.img.url }}" alt="">
-                </div>
-                <h2 class="fw-bold mb-5">Тренер: {{ attend_det.trainer.name }} {{ attend_det.trainer.surname }}</h2>
-                <p class="text-light">Дата устройства на работу: {{ attend_det.trainer.timeStamp }}</p>
-                <p class="my-4 text-light">Специализация в спорте: {{ attend_det.trainer.specialization }}</p>
-                <p class="mb-4 text-light">Опыт работы: {{ attend_det.trainer.experience }}</p>
-                <h4 class="my-4 text-light">Номер телефона: {{ attend_det.trainer.phone }}</h4>
-            </div>
+            <h2 class="fw-bold mb-5">Вид спорта заявки: {{ attend_det.sport.name }}</h2>
+            <p class="text-light">Дата регистрация заявки: {{ attend_det.date }}</p>
+            <p class="my-4 text-light">Дата начала тренировки: {{ attend_det.login }}</p>
+            <p class="mb-4 text-light">Дата окончания тренировки: {{ attend_det.logout }}</p>
+            <h4 class="my-3 text-light">Статус подтверждения: {% if attend_det.status == 'notviewed' %}
+                <td class="text-bg-light">{{ attend_det.get_status_display }}</td>
+            {% elif attend_det.status == 'yes' %}
+                <td class="text-bg-success">{{ attend_det.get_status_display }}</td>
+            {% else %}
+                <td class="text-bg-danger">{{ attend_det.get_status_display }}</td>
+            {% endif %}
+            </h4>
         </div>
-        <ul class="nav nav-tabs mt-5 border-danger" id="productTab" role="tablist">
 
-        </ul>
+        <div class="col-lg-6 d-flex flex-column align-items-center">
+            <div class="col-lg-6">
+                <img class="img-fluid" src="{{ attend_det.trainer.img.url }}" alt="">
+            </div>
+            <h2 class="fw-bold mb-5">Тренер: {{ attend_det.trainer.name }} {{ attend_det.trainer.surname }}</h2>
+            <p class="text-light">Дата устройства на работу: {{ attend_det.trainer.timeStamp }}</p>
+            <p class="my-4 text-light">Специализация в спорте: {{ attend_det.trainer.specialization }}</p>
+            <p class="mb-4 text-light">Опыт работы: {{ attend_det.trainer.experience }}</p>
+            <h4 class="my-4 text-light">Номер телефона: {{ attend_det.trainer.phone }}</h4>
+        </div>
+    </div>
+{% endblock %}
+{% block body %}
+    <h4 class="text-light"><strong>Комментарии к тренировки</strong></h4>
+    <div class="nav nav-tabs mt-5 border-danger d-flex flex-column">
+
+        <form class="mb-5 w-5" method="post">
+            {% csrf_token %}
+            <textarea name="body" cols="40" rows="10" class="form-control mt-2 bg-dark text-light"
+                      placeholder="Описание" required="" id="id_body"></textarea>
+            <br>
+            <div class="d-grid gap-2 justify-content-start">
+                <button class="btn btn-danger" type="submit">Оставить комментарий</button>
+            </div>
+        </form>
+
+        {% for item in comment %}
+            <div class="card mb-3">
+                <div class="card-body bg-dark text-light">
+                    <div class="d-flex flex-start">
+                        <div class="w-100">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h6 class="text-primary fw-bold mb-0">
+                                    {{ item.user.username }}
+                                    <span class="text-light ms-2">{{ item.body }}</span>
+                                </h6>
+                                <p class="mb-0">{{ item.created_at }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
     </div>
 {% endblock %}

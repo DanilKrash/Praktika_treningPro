@@ -2,7 +2,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django import forms
 from django.forms import ModelForm
-from authapp.models import Attendance, Sport, Trainer, Contact, Profile
+from authapp.models import Attendance, Sport, Trainer, Contact, Profile, CommentAttendence, CommentTrainer
 
 
 class RegisterUserForm(UserCreationForm):
@@ -60,11 +60,33 @@ class ProfileForm(forms.ModelForm):
         attrs={'class': 'form-control mt-2', 'placeholder': '+7(000)000-00-00'}))
     physical = forms.CharField(label='', widget=forms.TextInput(
         attrs={'class': 'form-control mt-2', 'placeholder': 'Физический уровень подготовки'}))
-    preferences = forms.ModelMultipleChoiceField(label='', queryset=Sport.objects.all(), widget=forms.CheckboxSelectMultiple(
-        attrs={'class': 'form-check-label', 'placeholder': 'Предпочтения'}))
+    preferences = forms.ModelMultipleChoiceField(label='', queryset=Sport.objects.all(),
+                                                 widget=forms.CheckboxSelectMultiple(
+                                                     attrs={'class': 'form-check-label',
+                                                            'placeholder': 'Предпочтения'}))
     img = forms.ImageField(label='',
                            widget=forms.FileInput(attrs={'class': 'form-control mt-2', 'placeholder': 'Фото'}))
 
     class Meta:
         model = Profile
         fields = ('phone', 'physical', 'preferences', 'img')
+
+
+class CommentAttendenceForm(forms.ModelForm):
+    body = forms.CharField(label='',
+                           widget=forms.Textarea(
+                               attrs={'class': 'form-control mt-2 bg-dark text-light', 'placeholder': 'Описание'}))
+
+    class Meta:
+        model = CommentAttendence
+        fields = ('body',)
+
+
+class CommentTrainerForm(forms.ModelForm):
+    body = forms.CharField(label='',
+                           widget=forms.Textarea(
+                               attrs={'class': 'form-control mt-2 bg-dark text-light', 'placeholder': 'Описание'}))
+
+    class Meta:
+        model = CommentTrainer
+        fields = ('body',)

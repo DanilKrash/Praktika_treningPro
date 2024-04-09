@@ -7,10 +7,10 @@
         <div class="row">
             <div class="col-md-20">
                 <section>
-                        <div class="container py-5 h-100">
-                            <div class="row d-flex justify-content-center align-items-center h-100">
-                                <div class="col col-md-9 col-lg-7 col-xl-7">
-                                    {% for item in prof %}
+                    <div class="container py-5 h-100">
+                        <div class="row d-flex justify-content-center align-items-center h-100">
+                            <div class="col col-md-9 col-lg-7 col-xl-7">
+                                {% for item in prof %}
                                     <div class="card" style="border-radius: 15px;">
                                         <div class="card-body p-4">
                                             <div class="d-flex align-items-center text-black">
@@ -40,27 +40,27 @@
                                                             <p class="mb-0">{{ item.user.email }}</p>
                                                         </div>
                                                         <div class="px-3">
-                                                            <p class="small text-muted mb-1 m-2">Уровень физ. подготовки:</p>
+                                                            <p class="small text-muted mb-1 m-2">Уровень физ.
+                                                                подготовки:</p>
                                                             <p class="mb-0">{{ item.physical }}</p>
                                                         </div>
                                                         <div class="px-3">
                                                             <p class="small text-muted mb-1 m-2">Предпочтения:</p>
-                                                            {% for p in item.preferences.all %} {{ p.name }} {% endfor %}
+                                                            {% for p in item.preferences.all %}
+                                                                {{ p.name }}
+                                                            {% endfor %}
                                                         </div>
                                                     </div>
+                                                    <a href="{% url 'update_profile' item.id %}"
+                                                       class="btn btn-danger mt-3">Изменить профиль</a>
                                                 </div>
                                             </div>
-                                            {% if item.phone == null %}
-                                                <a href="/create_profile" class="btn btn-danger mt-3">Создать профиль</a>
-                                            {% else %}
-                                                <a href="{% url 'update_profile' item.id %}" class="btn btn-danger mt-3">Изменить профиль</a>
-                                            {% endif %}
                                         </div>
                                     </div>
-                                    {% endfor %}
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
+                    </div>
                 </section>
                 <Center><h2 class="display-4 mt-3 mb-5"><b>Ваши заявки</b></h2></Center>
                 <table class="table">
